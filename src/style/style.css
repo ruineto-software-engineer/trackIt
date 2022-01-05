@@ -3,5 +3,17 @@
   margin:0;
   box-sizing: border-box;
 
+  font-family: 'Lexend Deca', sans-serif;
+
   transition: all .5s ease-in-out;
+}
+
+body, html{
+  height: 100%;
+
+  font-family: 'Lexend Deca', sans-serif;
+}
+
+.root{
+  height: 100%;
 }
