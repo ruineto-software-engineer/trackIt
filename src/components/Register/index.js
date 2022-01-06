@@ -3,8 +3,8 @@ import { Fragment, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Style from "./style";
 import Logo from "../../assets/img/logo.svg";
-import Loader from 'react-loader-spinner';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from 'react-loader-spinner';
 
 export default function Register() {
   const { Form, Input, Button, Container, Hyperlink } = Style;
@@ -25,14 +25,18 @@ export default function Register() {
       image,
       password
     });
-    promise.then(() => {
-      setIsloading(false);
-      navigate("/");
-    });
-    promise.catch((error) => {
-      setIsloading(false);
-      alert(`Não foi possível efetuar o cadastro. Erro ${error.response.status}: ${error.response.data.message}`);
-    });
+    setTimeout(() => {
+      promise.then(() => {
+        setIsloading(false);
+        navigate("/");
+      });
+    }, 3000);
+    setTimeout(() => {
+      promise.catch((error) => {
+        setIsloading(false);
+        alert(`Não foi possível efetuar o cadastro. Erro ${error.response.status}: ${error.response.data.message}`);
+      });
+    }, 3000);
   }
 
   return(

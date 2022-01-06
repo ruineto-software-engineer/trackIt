@@ -3,8 +3,8 @@ import { Fragment, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Style from "./style";
 import Logo from "../../assets/img/logo.svg";
-import Loader from 'react-loader-spinner';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from 'react-loader-spinner';
 
 export default function Login({ setStageToken }) {
   const { Form, Input, Button, Container, Hyperlink } = Style;
@@ -21,15 +21,19 @@ export default function Login({ setStageToken }) {
       email,
       password
     })
-    promise.then((response) => {
-      setIsloading(false);
-      setStageToken(response.token);
-      navigate("/today");
-    });
-    promise.catch((error) => {
-      setIsloading(false);
-      alert(`Não foi possível efetuar o login. Erro ${error.response.status}: ${error.response.data.message}`);
-    });
+    setTimeout(() => {
+      promise.then((response) => {
+        setIsloading(false);
+        setStageToken(response.token);
+        navigate("/today");
+      });
+    }, 3000);
+    setTimeout(() => {
+      promise.catch((error) => {
+        setIsloading(false);
+        alert(`Não foi possível efetuar o login. Erro ${error.response.status}: ${error.response.data.message}`);
+      });
+    }, 3000);
   }
 
   return(
@@ -57,7 +61,7 @@ export default function Login({ setStageToken }) {
 
           <Button type="submit" stageLoading={isLoading}>
             {isLoading ?
-              <Loader type="ThreeDots" color="#FFFFFF" height={50} width={50} />
+              <Loader type="ThreeDots" color="#FFFFFF" height={50} width={50} timeout={3000} />
             :
               "Entrar"
             }

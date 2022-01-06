@@ -69,6 +69,14 @@ const Container = styled.div`
   justify-content: center;
 
   height: 100%;
+
+  margin-top: 55px;
+
+  @media screen and (min-width: 800px) {
+    &{
+      margin-top: 100px;
+    }
+  }
 `;
 
 const Hyperlink = styled(Link)`
