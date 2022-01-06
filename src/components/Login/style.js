@@ -8,48 +8,58 @@ const Form = styled.form`
   justify-content: center;
 
   margin: 33px 0 25px;
+`;
 
-  input{
-    width: 303px;
-    height: 45px;
+const Input = styled.input`
+  width: 303px;
+  height: 45px;
 
-    background: #FFFFFF;
+  background-color: ${(props) => props.stageLoading ? "#F2F2F2" : "#FFFFFF"};
 
-    border: 1px solid #D5D5D5;
-    border-radius: 5px;
+  pointer-events: ${(props) => props.stageLoading ? "none" : "all"};
 
-    box-sizing: border-box;
+  border: 1px solid #D5D5D5;
+  border-radius: 5px;
 
-    margin-bottom: 6px;
-    padding: 10px;
-    
-    font-size: 19.976px;
-    line-height: 25px;
+  box-sizing: border-box;
 
+  margin-bottom: 6px;
+  padding: 10px;
+  
+  font-size: 19.976px;
+  line-height: 25px;
+
+  color: ${(props) => props.stageLoading ? "#AFAFAF" : "#DBDBDB"};
+
+  &::placeholder{
     color: #DBDBDB;
-
-    &::placeholder{
-      color: #DBDBDB;
-    }
   }
+`;
 
-  button{
-    width: 303px;
-    height: 45px;
+const Button = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    background: #52B6FF;
+  width: 303px;
+  height: 45px;
 
-    border: none;
-    border-radius: 4.63636px;
+  opacity: ${(props) => props.stageLoading ? 0.7 : 1};
 
-    font-size: 20.976px;
-    line-height: 26px;
-    text-align: center;
+  pointer-events: ${(props) => props.stageLoading ? "none" : "all"};
 
-    color: #FFFFFF;
+  background: #52B6FF;
 
-    cursor: pointer;
-  }
+  border: none;
+  border-radius: 4.63636px;
+
+  font-size: 20.976px;
+  line-height: 26px;
+  text-align: center;
+
+  color: #FFFFFF;
+
+  cursor: pointer;
 `;
 
 const Container = styled.div`
@@ -71,6 +81,8 @@ const Hyperlink = styled(Link)`
 
 const components = {
   Form,
+  Input,
+  Button,
   Container,
   Hyperlink
 };
