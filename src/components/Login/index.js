@@ -6,7 +6,7 @@ import Logo from "../../assets/img/logo.svg";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from 'react-loader-spinner';
 
-export default function Login({ setStageToken }) {
+export default function Login({ setStageToken, setStageUserInfo }) {
   const { Form, Input, Button, Container, Hyperlink } = Style;
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -20,11 +20,12 @@ export default function Login({ setStageToken }) {
     const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', {
       email,
       password
-    })
+    });
     setTimeout(() => {
       promise.then((response) => {
         setIsloading(false);
-        setStageToken(response.token);
+        setStageToken(response.data.token);
+        setStageUserInfo(response.data);
         navigate("/today");
       });
     }, 3000);
@@ -61,7 +62,7 @@ export default function Login({ setStageToken }) {
 
           <Button type="submit" stageLoading={isLoading}>
             {isLoading ?
-              <Loader type="ThreeDots" color="#FFFFFF" height={50} width={50} timeout={3000} />
+              <Loader type="ThreeDots" color="#FFFFFF" height={50} width={50} />
             :
               "Entrar"
             }

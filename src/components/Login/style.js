@@ -68,12 +68,12 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
 
-  height: 100%;
-
-  margin-top: 55px;
+  img{
+    margin-top: 68px;
+  }
 
   @media screen and (min-width: 800px) {
-    &{
+    img{
       margin-top: 100px;
     }
   }
