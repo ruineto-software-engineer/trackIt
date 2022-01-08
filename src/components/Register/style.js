@@ -29,7 +29,7 @@ const Input = styled.input`
   font-size: 19.976px;
   line-height: 25px;
 
-  color: ${(props) => props.stageLoading ? "#AFAFAF" : "#DBDBDB"};
+  color: ${(props) => props.stageLoading ? "#AFAFAF" : "#666666"};
 
   &::placeholder{
     color: #DBDBDB;

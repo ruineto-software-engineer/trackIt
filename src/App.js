@@ -17,7 +17,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Login setStageToken={setToken} setStageUserInfo={setUserInfo} />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/habits" element={<Habits />} />
+        <Route path="/habits" element={<Habits stageToken={token} stageUserInfo={userInfo} />} />
         <Route path="/today" element={<Today stageToken={token} stageUserInfo={userInfo} />} />
         <Route path="/historic" element={<Historic />} />
       </Routes>

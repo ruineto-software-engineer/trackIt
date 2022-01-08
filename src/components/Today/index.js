@@ -7,7 +7,7 @@ import Topbar from "../Topbar";
 import Menu from "../Menu";
 
 export default function Today({ stageToken, stageUserInfo }) {
-  const { Container, Content, Date, Progress } = Style;
+  const { Container, Content, Date, Subtitle } = Style;
   const [habits, setHabits] = useState(null);
   const dateMonth = dayjs().date();
   const [month, setMonth] = useState(dayjs().month());
@@ -85,13 +85,13 @@ export default function Today({ stageToken, stageUserInfo }) {
         <Topbar img={stageUserInfo.image} />
           <Content>
             <Date>{ date }</Date>
-            <Progress>
+            <Subtitle>
               {habitsReader.length === 0 ?
                 `Você não tem nenhum hábito cadastrado ainda. Adicione um hábito na guia de "Hábitos" apresentada no Menu no canto inferior da tela.`
               :
                 "Nenhum hábito concluído ainda"
               }
-            </Progress>
+            </Subtitle>
             { habitsReader }
           </Content>
         <Menu />

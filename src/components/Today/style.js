@@ -23,7 +23,7 @@ const Date = styled.p`
   color: #126BA5;
 `;
 
-const Progress = styled.p`
+const Subtitle = styled.p`
   font-size: 17.976px;
   line-height: 22px;
 
@@ -34,7 +34,7 @@ const components = {
   Container,
   Content,
   Date,
-  Progress
+  Subtitle
 };
 
 export default components;
