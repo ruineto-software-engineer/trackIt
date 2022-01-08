@@ -25,6 +25,7 @@ export default function Habits({ stageToken, stageUserInfo }) {
     Button 
   } = Style;
   const [listHabits, setListHabits] = useState(null);
+  const [isListed, setIsListed] = useState(false);
   const [displayForm, setDisplayForm] = useState(false);
   const [habitName, setHabitName] = useState('');
   const [arrayWeekDays, setArrayWeekDay] = useState([]);
@@ -72,6 +73,10 @@ export default function Habits({ stageToken, stageUserInfo }) {
     promise.then((response) => {
       setListHabits(response.data);
       setReloadDays(false);
+
+      if(response.data.length !== 0){
+        setIsListed(true);
+      }
     });
     promise.catch((error) => {
       console.log(error.response);
@@ -164,12 +169,13 @@ export default function Habits({ stageToken, stageUserInfo }) {
     );
   });
 
-  console.log(arrayWeekDays);
-  console.log(habitName);
+/*   console.log(arrayWeekDays);
+  console.log(habitName); */
+  console.log(isListed);
 
   return(
     <Fragment>
-      <Container>
+      <Container stageIsListed={isListed}>
         <Topbar img={stageUserInfo.image} />
           <Content>
             <RegisterContent>

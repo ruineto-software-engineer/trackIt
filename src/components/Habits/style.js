@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   width: 100%;
-
+  height: ${(props) => props.stageIsListed ? "fit-content" : "100%"};
   padding-bottom: 120px;
 
   display: flex;
