@@ -99,17 +99,26 @@ export default function Today({ stageToken, stageUserInfo }) {
     );
   });
 
+  const habitsDone = habits.filter((habit) => {
+    return habit.done === true;
+  })
+
+  let habitsCompleted = `${((habitsDone.length/habitsReader.length) * 100)}%`;
+
   return(
     <Fragment>
       <Container habitsLoaded={habitsLoaded}>
         <Topbar img={stageUserInfo.image} />
           <Content>
             <Date>{ date }</Date>
-            <Subtitle>
+            <Subtitle habitsDone={habitsDone.length}>
               {habitsReader.length === 0 ?
                 `Você não tem nenhum hábito a ser feito hoje. Adicione um hábito na guia de "Hábitos" apresentada no Menu no canto inferior da tela.`
               :
-                "Nenhum hábito concluído ainda"
+                habitsDone.length === 0 ?
+                  "Nenhum hábito concluído ainda"
+                :
+                  `${habitsCompleted} dos hábitos concluídos`
               }
             </Subtitle>
             { habitsReader }

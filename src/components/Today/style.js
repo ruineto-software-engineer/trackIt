@@ -31,7 +31,7 @@ const Subtitle = styled.p`
 
   margin-bottom: 28px;
 
-  color: #BABABA;
+  color: ${(props) => props.habitsDone !== 0 ? "#8FC549" : "#BABABA"};
 `;
 
 const ListedHabitContainer = styled.div`
