@@ -4,7 +4,7 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import Style from "./style";
 
-export default function Menu() {
+export default function Menu({ percentageCompleted, windowLocationPathName }) {
   const {
     Footer,
     Container,
@@ -12,11 +12,10 @@ export default function Menu() {
     ContentProgressbar,
     ContainerCircularProgressbar
   } = Style;
-  const percentage = 50;
 
   return(
     <Fragment>
-      <Footer>
+      <Footer windowLocationPathName={windowLocationPathName}>
         <Container>
           <Hypertext to="/habits">Hábitos</Hypertext>
 
@@ -24,7 +23,7 @@ export default function Menu() {
             <ContainerCircularProgressbar>
               <Link to="/today">
                 <CircularProgressbar
-                  value={percentage}
+                  value={percentageCompleted}
                   text={"Hoje"}
                   background
                   backgroundPadding={6}

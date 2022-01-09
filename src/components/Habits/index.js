@@ -1,14 +1,12 @@
 import axios from "axios";
 import { Fragment, useState, useEffect } from "react";
-import Topbar from "../Topbar";
-import Menu from "../Menu";
 import Style from "./style";
 import Plus from "../../assets/img/plus.svg";
 import Dump from "../../assets/img/dump.svg";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from 'react-loader-spinner';
 
-export default function Habits({ stageToken, stageUserInfo }) {
+export default function Habits({ stageToken }) {
   const { 
     Container, 
     Content, 
@@ -182,54 +180,52 @@ export default function Habits({ stageToken, stageUserInfo }) {
   return(
     <Fragment>
       <Container stageIsListed={isListed}>
-        <Topbar img={stageUserInfo.image} />
-          <Content>
-            <RegisterContent>
-              <Title>Meus hábitos</Title>
-              <Button onClick={() => setDisplayForm(true)}>
-                <img alt="plus.svg" src={Plus}/>
-              </Button>
-            </RegisterContent>
+        <Content>
+          <RegisterContent>
+            <Title>Meus hábitos</Title>
+            <Button onClick={() => setDisplayForm(true)}>
+              <img alt="plus.svg" src={Plus}/>
+            </Button>
+          </RegisterContent>
 
-            <RegisterForm onSubmit={handleCreateHabit} stageDisplayForm={displayForm}>
-              <RegisterFormContent>
-                <Input 
-                  placeholder="nome do hábito"
-                  onChange={(e) => setHabitName(e.target.value)}
-                  value={habitName}
-                  stageLoading={isLoading} 
-                  required 
-                />
-                <Days stageLoading={isLoading}>
-                  { weekDaysReader }
-                </Days>
-              </RegisterFormContent>
+          <RegisterForm onSubmit={handleCreateHabit} stageDisplayForm={displayForm}>
+            <RegisterFormContent>
+              <Input 
+                placeholder="nome do hábito"
+                onChange={(e) => setHabitName(e.target.value)}
+                value={habitName}
+                stageLoading={isLoading} 
+                required 
+              />
+              <Days stageLoading={isLoading}>
+                { weekDaysReader }
+              </Days>
+            </RegisterFormContent>
 
-              <RegisterFormFooter>
-                <CancelButton 
-                  type="button" 
-                  stageLoading={isLoading} 
-                  onClick={() => setDisplayForm(false)}
-                >Cancelar</CancelButton>
-                <SaveButton type="submit" stageLoading={isLoading}>
-                  {isLoading ?
-                    <Loader type="ThreeDots" color="#FFFFFF" height={50} width={50} />
-                  :
-                    "Salvar"
-                  }
-                </SaveButton>
-              </RegisterFormFooter>
-            </RegisterForm>
+            <RegisterFormFooter>
+              <CancelButton 
+                type="button" 
+                stageLoading={isLoading} 
+                onClick={() => setDisplayForm(false)}
+              >Cancelar</CancelButton>
+              <SaveButton type="submit" stageLoading={isLoading}>
+                {isLoading ?
+                  <Loader type="ThreeDots" color="#FFFFFF" height={50} width={50} />
+                :
+                  "Salvar"
+                }
+              </SaveButton>
+            </RegisterFormFooter>
+          </RegisterForm>
 
-            {listHabitsReader.length === 0 ?
-              <Subtitle>
-                Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
-              </Subtitle>
-            :
-              listHabitsReader
-            }
-          </Content>
-        <Menu />
+          {listHabitsReader.length === 0 ?
+            <Subtitle>
+              Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!
+            </Subtitle>
+          :
+            listHabitsReader
+          }
+        </Content>
       </Container>
     </Fragment>
   );

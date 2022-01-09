@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+const Container = styled.div`
+  display: ${(props) => props.windowLocationPathName !== "/" ? "initial" : "none" };
+`;
+
 const Header = styled.div`
   width: 100%;
   height: 70px;
@@ -34,7 +38,8 @@ const UserImg = styled.div`
 
 const components = {
   Header,
-  UserImg
+  UserImg,
+  Container
 };
 
 export default components;

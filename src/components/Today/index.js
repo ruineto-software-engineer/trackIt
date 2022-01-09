@@ -2,11 +2,9 @@ import axios from "axios";
 import { Fragment, useState, useEffect } from "react";
 import dayjs from 'dayjs';
 import Style from "./style";
-import Topbar from "../Topbar";
-import Menu from "../Menu";
 import Check from "../../assets/img/check.svg";
 
-export default function Today({ stageToken, stageUserInfo }) {
+export default function Today({ stageToken, stagePercentageCompleted, setStagePercentageCompleted }) {
   const { Container, Content, Date, Subtitle } = Style;
   const [habits, setHabits] = useState(null);
   const [habitsLoaded, setHabitsLoaded] = useState(false);
@@ -70,6 +68,11 @@ export default function Today({ stageToken, stageUserInfo }) {
       setHabits(response.data);
       setRealoadListedHabits(false);
 
+      const habitsDone = response.data.filter((habit) => {
+        return habit.done === true;
+      })
+      setStagePercentageCompleted(((habitsDone.length/response.data.length) * 100));
+
       if(response.data.length >= 3){
         setHabitsLoaded(true);
       }
@@ -77,7 +80,7 @@ export default function Today({ stageToken, stageUserInfo }) {
     promise.catch((error) => {
       console.log(error.response);
     });
-  }, [stageToken, reloadListedHabits]);
+  }, [stageToken, reloadListedHabits, stagePercentageCompleted, setStagePercentageCompleted]);
  
   if(habits === null){
     return "";
@@ -103,27 +106,25 @@ export default function Today({ stageToken, stageUserInfo }) {
     return habit.done === true;
   })
 
-  let habitsCompleted = `${((habitsDone.length/habitsReader.length) * 100)}%`;
+  let habitsCompleted = ((habitsDone.length/habitsReader.length) * 100);
 
   return(
     <Fragment>
       <Container habitsLoaded={habitsLoaded}>
-        <Topbar img={stageUserInfo.image} />
-          <Content>
-            <Date>{ date }</Date>
-            <Subtitle habitsDone={habitsDone.length}>
-              {habitsReader.length === 0 ?
-                `Você não tem nenhum hábito a ser feito hoje. Adicione um hábito na guia de "Hábitos" apresentada no Menu no canto inferior da tela.`
+        <Content>
+          <Date>{ date }</Date>
+          <Subtitle habitsDone={habitsDone.length}>
+            {habitsReader.length === 0 ?
+              `Você não tem nenhum hábito a ser feito hoje. Adicione um hábito na guia de "Hábitos" apresentada no Menu no canto inferior da tela.`
+            :
+              habitsDone.length === 0 ?
+                "Nenhum hábito concluído ainda"
               :
-                habitsDone.length === 0 ?
-                  "Nenhum hábito concluído ainda"
-                :
-                  `${habitsCompleted} dos hábitos concluídos`
-              }
-            </Subtitle>
-            { habitsReader }
-          </Content>
-        <Menu />
+                `${habitsCompleted.toFixed(0)}% dos hábitos concluídos`
+            }
+          </Subtitle>
+          { habitsReader }
+        </Content>
       </Container>
     </Fragment>
   );

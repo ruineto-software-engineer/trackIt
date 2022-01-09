@@ -5,7 +5,7 @@ const Footer = styled.div`
   width: 100%;
   height: 70px;
 
-  display: flex;
+  display: ${(props) => props.windowLocationPathName !== "/" ? "flex" : "none"};
   align-items: center;
   justify-content: center;
   
