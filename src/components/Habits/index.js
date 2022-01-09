@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Fragment, useState, useEffect, useContext } from "react";
 import TokenContext from "../../contexts/TokenContext";
+import PercentageContext from "../../contexts/PercentageContext";
 import Style from "./style";
 import Plus from "../../assets/img/plus.svg";
 import Dump from "../../assets/img/dump.svg";
@@ -24,6 +25,7 @@ export default function Habits() {
     Button 
   } = Style;
   const { token } = useContext(TokenContext);
+  const { percentage, setPercentage } = useContext(PercentageContext);
   const [listHabits, setListHabits] = useState(null);
   const [isListed, setIsListed] = useState(false);
   const [displayForm, setDisplayForm] = useState(false);
@@ -63,6 +65,21 @@ export default function Habits() {
       "day": "S"
     }
   ];
+
+  useEffect(() => {
+    const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', 
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    promise.then((response) => {
+      const habitsDone = response.data.filter((habit) => {
+        return habit.done === true;
+      })
+      setPercentage(((habitsDone.length/response.data.length) * 100));
+    });
+  }, [token, percentage, setPercentage, createdHabit, deletedHabit]);
 
   useEffect(() =>{
     const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', {

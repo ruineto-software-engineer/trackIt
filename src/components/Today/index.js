@@ -112,6 +112,8 @@ export default function Today() {
 
   let habitsCompleted = ((habitsDone.length/habitsReader.length) * 100);
 
+  console.log("Today.js", habits);
+
   return(
     <Fragment>
       <Container habitsLoaded={habitsLoaded}>
