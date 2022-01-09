@@ -36,7 +36,7 @@ const Subtitle = styled.p`
 
 const ListedHabitContainer = styled.div`
   width: 100%;
-  height: 94px;
+  height: ${(props) => props.habitTitleLength > 24 ? "initial" : "94px"};
   
   padding: 15px;
   margin-bottom: 10px;
@@ -49,9 +49,17 @@ const ListedHabitContainer = styled.div`
   justify-content: space-between;
 `;
 
+const HabitDetaisContainer = styled.div`
+  width: 75%;
+`;
+
 const HabitTitle = styled.h2`
   font-size: 19.976px;
   line-height: 25px;
+
+  width: 100%;
+
+  word-break: break-all;
 
   margin-bottom: 7px;
 
@@ -100,6 +108,7 @@ const components = {
   Date,
   Subtitle,
   ListedHabitContainer,
+  HabitDetaisContainer,
   HabitTitle,
   CurrentSequenceContainer,
   HighestSequenceContainer,

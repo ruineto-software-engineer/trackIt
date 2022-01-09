@@ -1,11 +1,15 @@
 import axios from "axios";
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect, useContext } from "react";
+import TokenContext from "../../contexts/TokenContext";
+import PercentageContext from "../../contexts/PercentageContext";
 import dayjs from 'dayjs';
 import Style from "./style";
 import Check from "../../assets/img/check.svg";
 
-export default function Today({ stageToken, stagePercentageCompleted, setStagePercentageCompleted }) {
+export default function Today() {
   const { Container, Content, Date, Subtitle } = Style;
+  const { token } = useContext(TokenContext);
+  const { percentage, setPercentage } = useContext(PercentageContext);
   const [habits, setHabits] = useState(null);
   const [habitsLoaded, setHabitsLoaded] = useState(false);
   const [reloadListedHabits, setRealoadListedHabits] = useState(false);
@@ -61,7 +65,7 @@ export default function Today({ stageToken, stagePercentageCompleted, setStagePe
     const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', 
     {
       headers: {
-        Authorization: `Bearer ${stageToken}`
+        Authorization: `Bearer ${token}`
       }
     });
     promise.then((response) => {
@@ -71,7 +75,7 @@ export default function Today({ stageToken, stagePercentageCompleted, setStagePe
       const habitsDone = response.data.filter((habit) => {
         return habit.done === true;
       })
-      setStagePercentageCompleted(((habitsDone.length/response.data.length) * 100));
+      setPercentage(((habitsDone.length/response.data.length) * 100));
 
       if(response.data.length >= 3){
         setHabitsLoaded(true);
@@ -80,7 +84,7 @@ export default function Today({ stageToken, stagePercentageCompleted, setStagePe
     promise.catch((error) => {
       console.log(error.response);
     });
-  }, [stageToken, reloadListedHabits, stagePercentageCompleted, setStagePercentageCompleted]);
+  }, [token, reloadListedHabits, percentage, setPercentage]);
  
   if(habits === null){
     return "";
@@ -90,7 +94,7 @@ export default function Today({ stageToken, stagePercentageCompleted, setStagePe
     return(
       <Fragment key={habit.id}>
         <ListedHabit
-          stageToken={stageToken}
+          token={token}
           habitId={habit.id}
           habitTitle={habit.name} 
           habitDone={habit.done}
@@ -131,7 +135,7 @@ export default function Today({ stageToken, stagePercentageCompleted, setStagePe
 }
 
 function ListedHabit({ 
-  stageToken,
+  token,
   habitId, 
   habitTitle, 
   habitDone, 
@@ -141,6 +145,7 @@ function ListedHabit({
 }) {
   const { 
     ListedHabitContainer,
+    HabitDetaisContainer,
     HabitTitle,
     CurrentSequenceContainer,
     HighestSequenceContainer,
@@ -157,7 +162,7 @@ function ListedHabit({
       { }, 
       {
         headers: {
-          Authorization: `Bearer ${stageToken}`
+          Authorization: `Bearer ${token}`
         }
       });
       promise.then(() => {
@@ -176,7 +181,7 @@ function ListedHabit({
       { }, 
       {
         headers: {
-          Authorization: `Bearer ${stageToken}`
+          Authorization: `Bearer ${token}`
         }
       });
       promise.then(() => {
@@ -195,8 +200,8 @@ function ListedHabit({
 
   return(
     <Fragment>
-      <ListedHabitContainer>
-        <div>
+      <ListedHabitContainer habitTitleLength={habitTitle.length}>
+        <HabitDetaisContainer>
           <HabitTitle>{ habitTitle }</HabitTitle>
           <CurrentSequenceContainer>
             Sequência atual: <CurrentSequence currentSequenceColor={currentSequenceColor} habitDone={habitDone}>{ habitCurrentSequence } {(habitCurrentSequence > 1 || habitCurrentSequence === 0) ? "dias" : "dia"}</CurrentSequence>
@@ -204,7 +209,7 @@ function ListedHabit({
           <HighestSequenceContainer>
             Seu recorde: <HighestSequence highestSequenceColor={highestSequenceColor} habitDone={habitDone}>{ habitHighestSequence } {(habitHighestSequence > 1 || habitHighestSequence === 0) ? "dias" : "dia"}</HighestSequence>
           </HighestSequenceContainer>
-        </div>
+        </HabitDetaisContainer>
 
         <HabitCheckMarkContainer 
           listedHabitDone={habitDone} 

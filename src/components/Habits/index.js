@@ -1,12 +1,13 @@
 import axios from "axios";
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect, useContext } from "react";
+import TokenContext from "../../contexts/TokenContext";
 import Style from "./style";
 import Plus from "../../assets/img/plus.svg";
 import Dump from "../../assets/img/dump.svg";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from 'react-loader-spinner';
 
-export default function Habits({ stageToken }) {
+export default function Habits() {
   const { 
     Container, 
     Content, 
@@ -22,6 +23,7 @@ export default function Habits({ stageToken }) {
     Subtitle, 
     Button 
   } = Style;
+  const { token } = useContext(TokenContext);
   const [listHabits, setListHabits] = useState(null);
   const [isListed, setIsListed] = useState(false);
   const [displayForm, setDisplayForm] = useState(false);
@@ -65,7 +67,7 @@ export default function Habits({ stageToken }) {
   useEffect(() =>{
     const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits', {
       headers: {
-        Authorization: `Bearer ${stageToken}`
+        Authorization: `Bearer ${token}`
       }
     });
     promise.then((response) => {
@@ -79,7 +81,7 @@ export default function Habits({ stageToken }) {
     promise.catch((error) => {
       console.log(error.response);
     });
-  }, [stageToken, createdHabit, deletedHabit]);
+  }, [token, createdHabit, deletedHabit]);
 
   if(listHabits === null){
     return "";
@@ -101,7 +103,7 @@ export default function Habits({ stageToken }) {
     },
     {
       headers: {
-        Authorization: `Bearer ${stageToken}`
+        Authorization: `Bearer ${token}`
       }
     })
 
@@ -131,7 +133,7 @@ export default function Habits({ stageToken }) {
       const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${idHabit}`,
       {
         headers: {
-          Authorization: `Bearer ${stageToken}`
+          Authorization: `Bearer ${token}`
         }
       });
       promise.then(() => {
@@ -295,7 +297,7 @@ function ListedHabit({ habitTitle, arrayWeekDays, habitWeekDays, handleDeleteHab
 
   return(
     <Fragment>
-      <HabitContainer>
+      <HabitContainer habitTitleLength={habitTitle.length}>
         <HabitTitle>{habitTitle}</HabitTitle>
         <Days>
           { habitWeekReader }

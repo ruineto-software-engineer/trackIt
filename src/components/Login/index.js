@@ -1,12 +1,16 @@
 import axios from "axios";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useContext } from "react";
+import UserContext from "../../contexts/UserContext";
+import TokenContext from "../../contexts/TokenContext";
 import { useNavigate } from "react-router-dom";
 import Style from "./style";
 import Logo from "../../assets/img/logo.svg";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from 'react-loader-spinner';
 
-export default function Login({ setStageToken, setStageUserInfo }) {
+export default function Login() {
+  const { setUser } = useContext(UserContext);
+  const { setToken } = useContext(TokenContext);
   const { Form, Input, Button, Container, Hyperlink } = Style;
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -24,8 +28,8 @@ export default function Login({ setStageToken, setStageUserInfo }) {
     setTimeout(() => {
       promise.then((response) => {
         setIsloading(false);
-        setStageToken(response.data.token);
-        setStageUserInfo(response.data);
+        setToken(response.data.token);
+        setUser(response.data);
         navigate("/today");
       });
     }, 3000);

@@ -7,34 +7,34 @@ import Today from "./components/Today";
 import Historic from "./components/Historic";
 import Topbar from "./components/Topbar";
 import Menu from "./components/Menu";
+import UserContext from "./contexts/UserContext";
+import TokenContext from "./contexts/TokenContext";
+import PercentageContext from "./contexts/PercentageContext";
 import "./style/reset.css";
 import "./style/style.css";
 
 export default function App() {
+  const [user, setUser] = useState('');
   const [token, setToken] = useState('');
-  const [userInfo, setUserInfo] = useState('');
-  const [percentageCompleted, setPercentageCompleted] = useState('');
+  const [percentage, setPercentage] = useState('');
 
   return(
-    <BrowserRouter>
-      <Topbar img={userInfo.image} windowLocationPathName={window.location.pathname} />
-        <Routes>
-          <Route path="/" element={<Login setStageToken={setToken} setStageUserInfo={setUserInfo} />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/habits" element={<Habits stageToken={token} />} />
-          <Route 
-            path="/today" 
-            element={
-              <Today 
-                stageToken={token} 
-                stagePercentageCompleted={percentageCompleted} 
-                setStagePercentageCompleted={setPercentageCompleted}
-              />
-            } 
-          />
-          <Route path="/historic" element={<Historic />} />
-        </Routes>
-      <Menu percentageCompleted={percentageCompleted} windowLocationPathName={window.location.pathname}/>
-    </BrowserRouter>
+    <UserContext.Provider value={{user, setUser}}>
+      <TokenContext.Provider value={{token, setToken}}>
+        <PercentageContext.Provider value={{percentage, setPercentage}}>
+          <BrowserRouter>
+            <Topbar pathname={window.location.pathname} />
+              <Routes>
+                <Route path="/" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/habits" element={<Habits />} />
+                <Route path="/today" element={<Today />} />
+                <Route path="/historic" element={<Historic />} />
+              </Routes>
+            <Menu pathname={window.location.pathname}/>
+          </BrowserRouter>
+        </PercentageContext.Provider>
+      </TokenContext.Provider>
+    </UserContext.Provider>
   );
 }

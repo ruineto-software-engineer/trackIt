@@ -1,18 +1,20 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
+import UserContext from "../../contexts/UserContext";
 import Style from "./style";
 import LogoMini from "../../assets/img/logo-mini.svg";
 
-export default function Topbar({ img, windowLocationPathName }) {
+export default function Topbar({ pathname }) {
   const { Header, UserImg, Container } = Style;
+  const { user } = useContext(UserContext);
 
   return(
     <Fragment>
-      <Container windowLocationPathName={windowLocationPathName}>
+      <Container pathname={pathname}>
         <Header>
           <img alt="logo-mini.png" src={LogoMini} />
 
           <UserImg>
-            <img alt="user-img" src={img} />
+            <img alt="user-img" src={user.image} />
           </UserImg>
         </Header>
       </Container>

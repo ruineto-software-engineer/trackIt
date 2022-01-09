@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  display: ${(props) => props.windowLocationPathName !== "/" ? "initial" : "none" };
+  display: ${(props) => props.pathname !== "/" ? "initial" : "none" };
 `;
 
 const Header = styled.div`

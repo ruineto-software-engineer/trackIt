@@ -176,7 +176,7 @@ const Button = styled.button`
 
 const HabitContainer = styled.div`
   width: 100%;
-  height: 91px;
+  height: ${(props) => props.habitTitleLength > 24 ? "initial" : "91px" };
 
   padding: 15px;
   margin: 20px 0 10px 0;
@@ -198,6 +198,9 @@ const HabitContainer = styled.div`
 const HabitTitle = styled.h2`
   font-size: 19.976px;
   line-height: 25px;
+
+  word-break: break-all;
+  width: 80%;
 
   color: #666666;
 `;

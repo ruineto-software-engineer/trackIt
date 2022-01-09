@@ -1,10 +1,11 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
+import PercentageContext from "../../contexts/PercentageContext";
 import { Link } from "react-router-dom";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import Style from "./style";
 
-export default function Menu({ percentageCompleted, windowLocationPathName }) {
+export default function Menu({ pathname }) {
   const {
     Footer,
     Container,
@@ -12,10 +13,11 @@ export default function Menu({ percentageCompleted, windowLocationPathName }) {
     ContentProgressbar,
     ContainerCircularProgressbar
   } = Style;
+  const { percentage } = useContext(PercentageContext);
 
   return(
     <Fragment>
-      <Footer windowLocationPathName={windowLocationPathName}>
+      <Footer pathname={pathname}>
         <Container>
           <Hypertext to="/habits">Hábitos</Hypertext>
 
@@ -23,7 +25,7 @@ export default function Menu({ percentageCompleted, windowLocationPathName }) {
             <ContainerCircularProgressbar>
               <Link to="/today">
                 <CircularProgressbar
-                  value={percentageCompleted}
+                  value={percentage}
                   text={"Hoje"}
                   background
                   backgroundPadding={6}
