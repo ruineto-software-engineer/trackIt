@@ -19,7 +19,7 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/habits" element={<Habits stageToken={token} stageUserInfo={userInfo} />} />
         <Route path="/today" element={<Today stageToken={token} stageUserInfo={userInfo} />} />
-        <Route path="/historic" element={<Historic />} />
+        <Route path="/historic" element={<Historic stageUserInfo={userInfo} />} />
       </Routes>
     </BrowserRouter>
   );
