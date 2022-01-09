@@ -37,6 +37,10 @@ const Hypertext = styled(Link)`
   margin: 0 36px;
 `;
 
+const HypertextProgressbar = styled(Link)`
+  text-decoration: none;
+`;
+
 const ContentProgressbar = styled.div`
   display: flex;
   align-items: center;
@@ -57,6 +61,7 @@ const components = {
   Footer,
   Container,
   Hypertext,
+  HypertextProgressbar,
   ContentProgressbar,
   ContainerCircularProgressbar
 };

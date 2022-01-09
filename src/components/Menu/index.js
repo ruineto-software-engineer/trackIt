@@ -1,6 +1,5 @@
 import { Fragment, useContext } from "react";
 import PercentageContext from "../../contexts/PercentageContext";
-import { Link } from "react-router-dom";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import Style from "./style";
@@ -10,6 +9,7 @@ export default function Menu({ pathname }) {
     Footer,
     Container,
     Hypertext,
+    HypertextProgressbar,
     ContentProgressbar,
     ContainerCircularProgressbar
   } = Style;
@@ -23,7 +23,7 @@ export default function Menu({ pathname }) {
 
           <ContentProgressbar>
             <ContainerCircularProgressbar>
-              <Link to="/today">
+              <HypertextProgressbar to="/today">
                 <CircularProgressbar
                   value={percentage}
                   text={"Hoje"}
@@ -36,7 +36,7 @@ export default function Menu({ pathname }) {
                     trailColor: "transparent"
                   })}
                 />
-              </Link>
+              </HypertextProgressbar>
             </ContainerCircularProgressbar>
           </ContentProgressbar>
 
