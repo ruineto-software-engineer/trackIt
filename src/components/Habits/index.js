@@ -26,6 +26,7 @@ export default function Habits() {
   } = Style;
   const { token } = useContext(TokenContext);
   const { percentage, setPercentage } = useContext(PercentageContext);
+  const [habits, setHabits] = useState(null);
   const [listHabits, setListHabits] = useState(null);
   const [isListed, setIsListed] = useState(false);
   const [displayForm, setDisplayForm] = useState(false);
@@ -74,9 +75,11 @@ export default function Habits() {
       }
     });
     promise.then((response) => {
+      setHabits(response.data);
       const habitsDone = response.data.filter((habit) => {
         return habit.done === true;
       })
+      
       setPercentage(((habitsDone.length/response.data.length) * 100));
     });
   }, [token, percentage, setPercentage, createdHabit, deletedHabit]);
@@ -169,6 +172,19 @@ export default function Habits() {
     }
   }
 
+  function handleControlProgress(deletedHabitName) {
+    if(habits.length === 1 && habits[0].name === deletedHabitName){
+      setPercentage(0);
+    }else{
+      return;
+    }
+  }
+
+  function handleCall(listedHabitId, listHabitsLength, deletedHabitName) {
+    handleDeleteHabit(listedHabitId, listHabitsLength);
+    handleControlProgress(deletedHabitName);
+  }
+
   const listHabitsReader = listHabits.map((listHabit) => {
     return(
       <Fragment key={listHabit.id}>
@@ -176,7 +192,7 @@ export default function Habits() {
           habitTitle={listHabit.name} 
           arrayWeekDays={weekDays} 
           habitWeekDays={listHabit.days}
-          handleDeleteHabit={() => handleDeleteHabit(listHabit.id, listHabits.length)} 
+          handleDeleteHabit={() => handleCall(listHabit.id, listHabits.length, listHabit.name)} 
         />
       </Fragment>
     );
