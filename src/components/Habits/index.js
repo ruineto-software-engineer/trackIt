@@ -35,7 +35,7 @@ export default function Habits({ stageToken, stageUserInfo }) {
   const [isLoading, setIsloading] = useState(false);
   const weekDays = [
     {
-      "id": 7,
+      "id": 0,
       "day": "D"
     },
     {
@@ -74,7 +74,7 @@ export default function Habits({ stageToken, stageUserInfo }) {
       setListHabits(response.data);
       setReloadDays(false);
 
-      if(response.data.length !== 0){
+      if(response.data.length >= 3){
         setIsListed(true);
       }
     });
@@ -90,6 +90,11 @@ export default function Habits({ stageToken, stageUserInfo }) {
   function handleCreateHabit(e) {
     e.preventDefault();
     
+    if(arrayWeekDays.length === 0){
+      alert("Por gentileza, informe os dias de execução do seu hábito e tente novamente.");
+      return;
+    }
+
     setIsloading(true);
     const promise = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits',
     {
@@ -104,13 +109,14 @@ export default function Habits({ stageToken, stageUserInfo }) {
 
     setTimeout(() => {
       promise.then((response) => {
+        alert(`Parabéns! Seu Hábito - ${habitName} foi criado com sucesso, é hora de começar a trackear!`)
+
         setIsloading(false);
         setCreatedHabit(response.data);
         setHabitName('');
         setArrayWeekDay([]);
         setDisplayForm(false);
         setReloadDays(true);
-        console.log(response.data);
       });
     }, 3000);
     setTimeout(() => {
@@ -122,7 +128,7 @@ export default function Habits({ stageToken, stageUserInfo }) {
     }, 3000);
   }
 
-  function handleDeleteHabit(idHabit) {
+  function handleDeleteHabit(idHabit, listHabitsLength) {
     if (window.confirm("Você realmente deseja deletar este hábito?")) {
       const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${idHabit}`,
       {
@@ -133,6 +139,10 @@ export default function Habits({ stageToken, stageUserInfo }) {
       promise.then(() => {
         alert("Hábito deletado com sucesso!");
         setDeletedHabit(idHabit);
+
+        if(listHabitsLength - 1 < 3){
+          setIsListed(false);
+        }
       });
       promise.catch(() => {
         alert("Não foi possível deletar o hábito!");
@@ -149,7 +159,7 @@ export default function Habits({ stageToken, stageUserInfo }) {
           habitTitle={listHabit.name} 
           arrayWeekDays={weekDays} 
           habitWeekDays={listHabit.days}
-          handleDeleteHabit={() => handleDeleteHabit(listHabit.id)} 
+          handleDeleteHabit={() => handleDeleteHabit(listHabit.id, listHabits.length)} 
         />
       </Fragment>
     );
@@ -168,10 +178,6 @@ export default function Habits({ stageToken, stageUserInfo }) {
       </Fragment>
     );
   });
-
-/*   console.log(arrayWeekDays);
-  console.log(habitName); */
-  console.log(isListed);
 
   return(
     <Fragment>
@@ -283,7 +289,6 @@ function ListedHabit({ habitTitle, arrayWeekDays, habitWeekDays, handleDeleteHab
     }
   }
 
-  console.log(selectedHabitWeekDays);
   const habitWeekReader = selectedHabitWeekDays.map((weekDay) => {
     return(
       <Fragment key={weekDay.id}>
