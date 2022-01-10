@@ -4,10 +4,23 @@ import dayjs from 'dayjs';
 import TokenContext from "../../contexts/TokenContext";
 import PercentageContext from "../../contexts/PercentageContext";
 import 'react-calendar/dist/Calendar.css';
+import Check from "../../assets/img/check.svg";
 import Style from "./style";
 
 export default function Historic() {
-  const { Container, Content, Title, ContainerCalendar, StyledCalendar, DateTitle, DateSubtitle } = Style;
+  const { 
+    Container, 
+    Content, 
+    Title, 
+    ContainerCalendar, 
+    StyledCalendar, 
+    DateTitle, 
+    DateSubtitle,
+    ListedHabitContainer,
+    HabitTitle,
+    HabitDetaisContainer,
+    HabitCheckMarkContainer
+  } = Style;
   const { token } = useContext(TokenContext);
   const { percentage, setPercentage } = useContext(PercentageContext);
   const [historic, setHistoric] = useState(null);
@@ -118,8 +131,6 @@ export default function Historic() {
 
     const dateExtendend = `${weekDay}, ${dateMonth < 10 ? 0 + dateMonth.toString() : dateMonth}/${month + 1}`;
 
-    console.log(dateExtendend);
-
     let habitsClickedDate = [];
     for (let i = 0; i < historic.length; i++) {
       const historicElement = historic[i];
@@ -178,7 +189,17 @@ export default function Historic() {
               selectedDayHistoric.selectedDateHabits.length > 0 &&
                 selectedDayHistoric.selectedDateHabits.map((currentHabit) => {
                   return(
-                    <p key={currentHabit.id}>{currentHabit.id}</p>
+                    <Fragment key={currentHabit.id}>
+                      <ListedHabitContainer habitTitleLength={currentHabit.length}>
+                        <HabitDetaisContainer>
+                          <HabitTitle>{ currentHabit.name }</HabitTitle>
+                        </HabitDetaisContainer>
+                
+                        <HabitCheckMarkContainer listedHabitDone={currentHabit.done}>
+                          <img alt="check.svg" src={Check}/>
+                        </HabitCheckMarkContainer>
+                      </ListedHabitContainer>
+                    </Fragment>
                   );
                 })
             :

@@ -65,6 +65,52 @@ const DateSubtitle = styled.p`
   };
 `;
 
+const ListedHabitContainer = styled.div`
+  width: 100%;
+  height: 94px;
+  
+  padding: 15px;
+  margin-bottom: 10px;
+
+  background-color: #FFFFFF;
+  border-radius: 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const HabitTitle = styled.h2`
+  font-size: 19.976px;
+  line-height: 25px;
+
+  width: 100%;
+
+  word-break: break-all;
+
+  margin-bottom: 7px;
+
+  color: #666666;  
+`;
+
+const HabitDetaisContainer = styled.div`
+  width: 75%;
+`;
+
+const HabitCheckMarkContainer = styled.div`
+  width: 69px;
+  height: 69px;
+
+  background-color: ${(props) => props.listedHabitDone ? "#8FC549" : "#EBEBEB"};
+
+  border: 1px solid #E7E7E7;
+  border-radius: 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const components = {
   Container,
   Content,
@@ -72,7 +118,11 @@ const components = {
   ContainerCalendar,
   StyledCalendar,
   DateTitle,
-  DateSubtitle
+  DateSubtitle,
+  ListedHabitContainer,
+  HabitTitle,
+  HabitDetaisContainer,
+  HabitCheckMarkContainer
 };
 
 export default components;
