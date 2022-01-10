@@ -27,6 +27,7 @@ export default function Historic() {
   const [selectedDayHistoric, setSelectedDayHistoric] = useState('');
   const [value, onChange] = useState(new Date());
   const [marked, setMarked] = useState([]);
+  const [habitsPercentage, setHabitsPercentage] = useState('');
 
   useEffect(() => {
     const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', 
@@ -142,6 +143,11 @@ export default function Historic() {
       }
     }
 
+    const habitsDone = habitsClickedDate.filter((habit) => {
+      return habit.done === true;
+    })
+    setHabitsPercentage(((habitsDone.length/habitsClickedDate.length) * 100));
+
     console.log("habitsClickedDate: ", habitsClickedDate);
     setSelectedDayHistoric({"selectedDate": dateExtendend, "selectedDateHabits": [ ...habitsClickedDate ]});
   }
@@ -177,7 +183,7 @@ export default function Historic() {
           <DateSubtitle selectedDayHistoric={selectedDayHistoric}>
             { selectedDayHistoric !== '' ?
                 selectedDayHistoric.selectedDateHabits.length > 0 ? 
-                  "x% dos hábitos completados"
+                  `${habitsPercentage}% dos hábitos completados`
                 :
                   "Não há histórico para o dia selecionado"
             : 
