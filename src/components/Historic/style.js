@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
 
   padding-bottom: 120px;
 
@@ -27,7 +26,9 @@ const Title = styled.h2`
 `;
 
 const ContainerCalendar = styled.div`
-  height: 390px;
+  height: 402px;
+
+  margin-bottom: 30px;
 `;
 
 const StyledCalendar = styled(Calendar)`
@@ -40,12 +41,38 @@ const StyledCalendar = styled(Calendar)`
   border-radius: 10px;
 `;
 
+const DateTitle = styled.h2`
+  font-size: 22.976px;
+  line-height: 29px;
+
+  color: #126BA5;
+`;
+
+const DateSubtitle = styled.p`
+  font-size: 17.976px;
+  line-height: 22px;
+
+  margin-bottom: 28px;
+
+  color: 
+  ${
+    (props) => 
+      props.selectedDayHistoric !== '' &&
+        props.selectedDayHistoric.selectedDateHabits.length > 0 ?
+          "#8FC549" 
+        : 
+          "#BABABA"
+  };
+`;
+
 const components = {
   Container,
   Content,
   Title,
   ContainerCalendar,
-  StyledCalendar
+  StyledCalendar,
+  DateTitle,
+  DateSubtitle
 };
 
 export default components;
