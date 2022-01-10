@@ -18,18 +18,47 @@ body, html{
   height: 100%;
 }
 
+.react-calendar__tile--now{
+  background: #ffff76 !important;
+
+  border-radius: 0 !important;
+}
+
+button.completed {
+  background-color: #8CC654;
+
+  color: #000000;
+
+  border-radius: 50px;
+
+  /* height: 40px; */
+}
+
+button.incompleted {
+  background-color: #E65666;
+
+  color: #000000;
+
+  border-radius: 50px;
+
+  /* height: 40px; */
+}
+
 .react-calendar__viewContainer{
   height: 100%;
 }
 .react-calendar__month-view{
   height: 100%;
 }
+
 .react-calendar__month-view > div{
   height: 100%;
 }
+
 .react-calendar__month-view > div > div{
   height: 100%;
 }
+
 .react-calendar__month-view__days{
   height: 76%;
 }
