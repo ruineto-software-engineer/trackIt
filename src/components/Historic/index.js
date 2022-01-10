@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Fragment, useState, useEffect, useContext } from "react";
 import moment from 'moment';
+import dayjs from 'dayjs';
 import TokenContext from "../../contexts/TokenContext";
 import PercentageContext from "../../contexts/PercentageContext";
 import 'react-calendar/dist/Calendar.css';
@@ -13,6 +14,7 @@ export default function Historic() {
   const [historic, setHistoric] = useState(null);
   const [value, onChange] = useState(new Date());
   const [marked, setMarked] = useState([]);
+  /* const locale = "pt-BR"; */
 
   useEffect(() => {
     const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', 
@@ -86,6 +88,7 @@ export default function Historic() {
                   return 'completed'
                 }
               }}
+              formatDay ={(locale, date) => dayjs(date).format('DD')}
             />
           </ContainerCalendar>
         </Content>
