@@ -7,9 +7,11 @@ import Today from "./components/Today";
 import Historic from "./components/Historic";
 import Topbar from "./components/Topbar";
 import Menu from "./components/Menu";
+import Day from "./components/Day";
 import UserContext from "./contexts/UserContext";
 import TokenContext from "./contexts/TokenContext";
 import PercentageContext from "./contexts/PercentageContext";
+import DayContext from "./contexts/DayContext"
 import "./style/reset.css";
 import "./style/style.css";
 
@@ -20,6 +22,7 @@ export default function App() {
   const [user, setUser] = useState(userSerialized);
   const [token, setToken] = useState(tokenSerialized);
   const [percentage, setPercentage] = useState('');
+  const [day, setDay] = useState('');
 
   function PersistLogin(user, token) {
     setUser(user);
@@ -33,17 +36,20 @@ export default function App() {
     <UserContext.Provider value={{user, setUser, PersistLogin}}>
       <TokenContext.Provider value={{token, setToken}}>
         <PercentageContext.Provider value={{percentage, setPercentage}}>
-          <BrowserRouter>
-            <Topbar pathname={window.location.pathname} />
-              <Routes>
-                <Route path="/" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/habits" element={<Habits />} />
-                <Route path="/today" element={<Today />} />
-                <Route path="/historic" element={<Historic />} />
-              </Routes>
-            <Menu pathname={window.location.pathname}/>
-          </BrowserRouter>
+          <DayContext.Provider value={{day, setDay}}>
+            <BrowserRouter>
+              <Topbar pathname={window.location.pathname} />
+                <Routes>
+                  <Route path="/" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/habits" element={<Habits />} />
+                  <Route path="/today" element={<Today />} />
+                  <Route path="/historic" element={<Historic />} />
+                  <Route path="/Day/:idHabit" element={<Day />} />
+                </Routes>
+              <Menu pathname={window.location.pathname}/>
+            </BrowserRouter>
+          </DayContext.Provider>
         </PercentageContext.Provider>
       </TokenContext.Provider>
     </UserContext.Provider>

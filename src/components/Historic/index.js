@@ -1,10 +1,11 @@
 import axios from "axios";
 import { Fragment, useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import dayjs from 'dayjs';
 import TokenContext from "../../contexts/TokenContext";
 import PercentageContext from "../../contexts/PercentageContext";
+import DayContext from "../../contexts/DayContext";
 import 'react-calendar/dist/Calendar.css';
-import Check from "../../assets/img/check.svg";
 import Style from "./style";
 
 export default function Historic() {
@@ -13,22 +14,15 @@ export default function Historic() {
     Content, 
     Title, 
     ContainerCalendar, 
-    StyledCalendar, 
-    DateTitle, 
-    DateSubtitle,
-    ListedHabitContainer,
-    HabitTitle,
-    HabitDetaisContainer,
-    HabitCheckMarkContainer,
-    NoCheck
+    StyledCalendar
   } = Style;
   const { token } = useContext(TokenContext);
   const { percentage, setPercentage } = useContext(PercentageContext);
+  const { setDay } = useContext(DayContext);
   const [historic, setHistoric] = useState(null);
-  const [selectedDayHistoric, setSelectedDayHistoric] = useState('');
   const [value, onChange] = useState(new Date());
   const [marked, setMarked] = useState([]);
-  const [habitsPercentage, setHabitsPercentage] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', 
@@ -129,6 +123,7 @@ export default function Historic() {
     const dateExtendend = `${weekDay}, ${dateMonth < 10 ? 0 + dateMonth.toString() : dateMonth}/${month + 1}`;
 
     let habitsClickedDate = [];
+    const idDay = dateMonth;
     for (let i = 0; i < historic.length; i++) {
       const historicElement = historic[i];
       
@@ -142,8 +137,14 @@ export default function Historic() {
     const habitsDone = habitsClickedDate.filter((habit) => {
       return habit.done === true;
     })
-    setHabitsPercentage(((habitsDone.length/habitsClickedDate.length) * 100));
-    setSelectedDayHistoric({"selectedDate": dateExtendend, "selectedDateHabits": [ ...habitsClickedDate ]});
+    setDay(
+      {
+        "selectedDate": dateExtendend, 
+        "selectedDateHabits": [ ...habitsClickedDate ],
+        "percentageCompletedHabits": ((habitsDone.length/habitsClickedDate.length) * 100)
+      }
+    );
+    navigate(`/Day/${idDay}`);
   }
 
   return(
@@ -165,50 +166,7 @@ export default function Historic() {
               formatDay ={(locale, date) => dayjs(date).format('DD')}
               onClickDay={(date) => handleClickDay(date)}
             />
-          </ContainerCalendar>
-
-          <DateTitle>
-          { selectedDayHistoric !== '' ?
-              selectedDayHistoric.selectedDate
-            :
-              "Nenhum dia foi selecionado"
-          }
-          </DateTitle>
-          <DateSubtitle selectedDayHistoric={selectedDayHistoric} habitsPercentage={habitsPercentage}>
-            { selectedDayHistoric !== '' ?
-                selectedDayHistoric.selectedDateHabits.length > 0 ? 
-                  `${habitsPercentage}% dos hábitos completados`
-                :
-                  "Não há histórico para o dia selecionado"
-              : 
-                "Nenhum dia foi selecionado"
-            }
-          </DateSubtitle>
-
-          { selectedDayHistoric !== '' ?
-              selectedDayHistoric.selectedDateHabits.length > 0 &&
-                selectedDayHistoric.selectedDateHabits.map((currentHabit) => {
-                  return(
-                    <Fragment key={currentHabit.id}>
-                      <ListedHabitContainer habitTitleLength={currentHabit.length}>
-                        <HabitDetaisContainer>
-                          <HabitTitle>{ currentHabit.name }</HabitTitle>
-                        </HabitDetaisContainer>
-                
-                        <HabitCheckMarkContainer listedHabitDone={currentHabit.done}>
-                          { currentHabit.done === true ?
-                            <img alt="check.svg" src={Check}/>
-                          :
-                            <NoCheck>X</NoCheck>
-                          }
-                        </HabitCheckMarkContainer>
-                      </ListedHabitContainer>
-                    </Fragment>
-                  );
-                })
-            :
-              ""
-          }        
+          </ContainerCalendar>        
         </Content>
       </Container>
     </Fragment>
