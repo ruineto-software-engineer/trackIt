@@ -17,3 +17,19 @@ body, html{
   width: 100%;
   height: 100%;
 }
+
+.react-calendar__viewContainer{
+  height: 100%;
+}
+.react-calendar__month-view{
+  height: 100%;
+}
+.react-calendar__month-view > div{
+  height: 100%;
+}
+.react-calendar__month-view > div > div{
+  height: 100%;
+}
+.react-calendar__month-view__days{
+  height: 76%;
+}

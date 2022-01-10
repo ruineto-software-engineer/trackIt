@@ -1,3 +1,4 @@
+import Calendar from "react-calendar";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -25,20 +26,26 @@ const Title = styled.h2`
   color: #126BA5;  
 `;
 
-const Subtitle = styled.p`
-  font-size: 17.976px;
-  line-height: 22px;
+const ContainerCalendar = styled.div`
+  height: 402px;
+`;
 
-  margin-top: 17px;
+const StyledCalendar = styled(Calendar)`
+  width: 100%;
+  height: 100%;
 
-  color: #666666;
+  margin-top: 11px;
+
+  border: none;
+  border-radius: 10px;
 `;
 
 const components = {
   Container,
   Content,
   Title,
-  Subtitle
+  ContainerCalendar,
+  StyledCalendar
 };
 
 export default components;
