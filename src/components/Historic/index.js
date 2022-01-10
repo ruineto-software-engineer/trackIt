@@ -19,7 +19,8 @@ export default function Historic() {
     ListedHabitContainer,
     HabitTitle,
     HabitDetaisContainer,
-    HabitCheckMarkContainer
+    HabitCheckMarkContainer,
+    NoCheck
   } = Style;
   const { token } = useContext(TokenContext);
   const { percentage, setPercentage } = useContext(PercentageContext);
@@ -87,11 +88,6 @@ export default function Historic() {
 
   function handleClickDay(date) {
     const clickedDate = dayjs(date).format("DD/MM/YYYY");
-    console.log("clickedDate: ", clickedDate);
-
-    console.log("date(): ", dayjs(date).date());
-    console.log("month(): ", dayjs(date).month());
-    console.log("day(): ", dayjs(date).day());
 
     let dateMonth = dayjs(date).date();
     let month = dayjs(date).month();
@@ -147,8 +143,6 @@ export default function Historic() {
       return habit.done === true;
     })
     setHabitsPercentage(((habitsDone.length/habitsClickedDate.length) * 100));
-
-    console.log("habitsClickedDate: ", habitsClickedDate);
     setSelectedDayHistoric({"selectedDate": dateExtendend, "selectedDateHabits": [ ...habitsClickedDate ]});
   }
 
@@ -177,17 +171,17 @@ export default function Historic() {
           { selectedDayHistoric !== '' ?
               selectedDayHistoric.selectedDate
             :
-            "Nenhum dia foi selecionado"
+              "Nenhum dia foi selecionado"
           }
           </DateTitle>
-          <DateSubtitle selectedDayHistoric={selectedDayHistoric}>
+          <DateSubtitle selectedDayHistoric={selectedDayHistoric} habitsPercentage={habitsPercentage}>
             { selectedDayHistoric !== '' ?
                 selectedDayHistoric.selectedDateHabits.length > 0 ? 
                   `${habitsPercentage}% dos hábitos completados`
                 :
                   "Não há histórico para o dia selecionado"
-            : 
-              "Nenhum dia foi selecionado"
+              : 
+                "Nenhum dia foi selecionado"
             }
           </DateSubtitle>
 
@@ -202,7 +196,11 @@ export default function Historic() {
                         </HabitDetaisContainer>
                 
                         <HabitCheckMarkContainer listedHabitDone={currentHabit.done}>
-                          <img alt="check.svg" src={Check}/>
+                          { currentHabit.done === true ?
+                            <img alt="check.svg" src={Check}/>
+                          :
+                            <NoCheck>X</NoCheck>
+                          }
                         </HabitCheckMarkContainer>
                       </ListedHabitContainer>
                     </Fragment>

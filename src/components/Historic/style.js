@@ -59,7 +59,10 @@ const DateSubtitle = styled.p`
     (props) => 
       props.selectedDayHistoric !== '' &&
         props.selectedDayHistoric.selectedDateHabits.length > 0 ?
-          "#8FC549" 
+          props.habitsPercentage !== 100 ?
+            "#E65666"
+          :
+            "#8FC549" 
         : 
           "#BABABA"
   };
@@ -101,7 +104,7 @@ const HabitCheckMarkContainer = styled.div`
   width: 69px;
   height: 69px;
 
-  background-color: ${(props) => props.listedHabitDone ? "#8FC549" : "#EBEBEB"};
+  background-color: ${(props) => props.listedHabitDone ? "#8FC549" : "#E65666"};
 
   border: 1px solid #E7E7E7;
   border-radius: 5px;
@@ -110,6 +113,12 @@ const HabitCheckMarkContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+const NoCheck = styled.p`
+  color: #FFFFFF;
+
+  font-size: 40px;
+`
 
 const components = {
   Container,
@@ -122,7 +131,8 @@ const components = {
   ListedHabitContainer,
   HabitTitle,
   HabitDetaisContainer,
-  HabitCheckMarkContainer
+  HabitCheckMarkContainer,
+  NoCheck
 };
 
 export default components;
