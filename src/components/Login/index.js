@@ -1,7 +1,6 @@
 import axios from "axios";
-import { Fragment, useState, useContext } from "react";
+import { Fragment, useState, useEffect, useContext } from "react";
 import UserContext from "../../contexts/UserContext";
-import TokenContext from "../../contexts/TokenContext";
 import { useNavigate } from "react-router-dom";
 import Style from "./style";
 import Logo from "../../assets/img/logo.svg";
@@ -9,13 +8,18 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from 'react-loader-spinner';
 
 export default function Login() {
-  const { setUser } = useContext(UserContext);
-  const { setToken } = useContext(TokenContext);
+  const { PersistLogin } = useContext(UserContext);
   const { Form, Input, Button, Container, Hyperlink } = Style;
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsloading] = useState(false);
+
+  useEffect(() => {
+    if(localStorage.getItem("token") !== null){
+      navigate("/today");
+    }
+  }, [navigate]);
 
   function handleLogin(e) {
     e.preventDefault();
@@ -28,8 +32,8 @@ export default function Login() {
     setTimeout(() => {
       promise.then((response) => {
         setIsloading(false);
-        setToken(response.data.token);
-        setUser(response.data);
+
+        PersistLogin(response.data.image, response.data.token);
         navigate("/today");
       });
     }, 3000);

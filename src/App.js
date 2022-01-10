@@ -14,12 +14,23 @@ import "./style/reset.css";
 import "./style/style.css";
 
 export default function App() {
-  const [user, setUser] = useState('');
-  const [token, setToken] = useState('');
+  const tokenSerialized = localStorage.getItem("token");
+  const userSerialized = localStorage.getItem("user");
+
+  const [user, setUser] = useState(userSerialized);
+  const [token, setToken] = useState(tokenSerialized);
   const [percentage, setPercentage] = useState('');
 
+  function PersistLogin(user, token) {
+    setUser(user);
+		setToken(token);
+
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", user);
+	}
+
   return(
-    <UserContext.Provider value={{user, setUser}}>
+    <UserContext.Provider value={{user, setUser, PersistLogin}}>
       <TokenContext.Provider value={{token, setToken}}>
         <PercentageContext.Provider value={{percentage, setPercentage}}>
           <BrowserRouter>

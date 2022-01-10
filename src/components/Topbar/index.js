@@ -14,7 +14,7 @@ export default function Topbar({ pathname }) {
           <img alt="logo-mini.png" src={LogoMini} />
 
           <UserImg>
-            <img alt="user-img" src={user.image} />
+            <img alt="user-img" src={user} />
           </UserImg>
         </Header>
       </Container>
