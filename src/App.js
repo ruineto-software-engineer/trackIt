@@ -16,8 +16,8 @@ import "./style/reset.css";
 import "./style/style.css";
 
 export default function App() {
-  const tokenSerialized = localStorage.getItem("token");
-  const userSerialized = localStorage.getItem("user");
+  const [tokenSerialized, setTokenSerialized] = useState(localStorage.getItem("token"));
+  const [userSerialized, setUserSerialized] = useState(localStorage.getItem("user"));
 
   const [user, setUser] = useState(userSerialized);
   const [token, setToken] = useState(tokenSerialized);
@@ -28,12 +28,20 @@ export default function App() {
     setUser(user);
 		setToken(token);
 
-    localStorage.setItem("token", token);
-    localStorage.setItem("user", user);
+    setTokenSerialized(localStorage.setItem("token", token));
+    setUserSerialized(localStorage.setItem("user", user));
 	}
 
+  function Logout() {
+    setTokenSerialized(localStorage.removeItem("token"));
+    setUserSerialized(localStorage.removeItem("user"));
+    
+    setUser(userSerialized);
+		setToken(tokenSerialized);
+  }
+
   return(
-    <UserContext.Provider value={{user, setUser, PersistLogin}}>
+    <UserContext.Provider value={{user, setUser, PersistLogin, Logout}}>
       <TokenContext.Provider value={{token, setToken}}>
         <PercentageContext.Provider value={{percentage, setPercentage}}>
           <DayContext.Provider value={{day, setDay}}>

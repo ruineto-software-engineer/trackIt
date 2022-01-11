@@ -5,7 +5,13 @@ const Footer = styled.div`
   width: 100%;
   height: 70px;
 
-  display: ${(props) => props.pathname !== "/" ? "flex" : "none"};
+  display: 
+    ${(props) => 
+        (props.pathname === "/" || props.pathname === "/register") ? 
+          "none" 
+      : 
+          "flex"
+    };
   align-items: center;
   justify-content: center;
   
