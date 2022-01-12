@@ -26,7 +26,7 @@ body, html{
 button.react-calendar__tile.react-calendar__month-view__days__day.react-calendar__month-view__days__day--neighboringMonth.completed > abbr{
   background-color: #8CC654;
 
-  padding: 11px 12.5px;
+  padding: 10px 11px;
 
   color: #757575;
 
@@ -46,7 +46,7 @@ button.react-calendar__tile.react-calendar__month-view__days__day.react-calendar
 button.completed > abbr{
   background-color: #8CC654;
 
-  padding: 11px 12.5px;
+  padding: 10px 11px;
 
   color: #000000;
 

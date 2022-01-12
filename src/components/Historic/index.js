@@ -116,7 +116,7 @@ export default function Historic() {
       {
         "selectedDate": dateExtendend, 
         "selectedDateHabits": [ ...habitsClickedDate ],
-        "percentageCompletedHabits": ((habitsDone.length/habitsClickedDate.length) * 100)
+        "percentageCompletedHabits": ((habitsDone.length/habitsClickedDate.length) * 100).toFixed(0)
       }
     );
     navigate(`/Day/${dateMonth}`);
