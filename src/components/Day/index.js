@@ -17,8 +17,6 @@ export default function Day() {
   } = Style;
   const { day } = useContext(DayContext);
 
-  console.log(day.percentageCompletedHabits);
-
   return(
     <Fragment>
       <Container dayContent={day}>
