@@ -3,6 +3,7 @@ import { Fragment, useState, useEffect, useContext } from "react";
 import TokenContext from "../../contexts/TokenContext";
 import PercentageContext from "../../contexts/PercentageContext";
 import dayjs from 'dayjs';
+import ptBr from "dayjs/locale/pt-br";
 import Style from "./style";
 import Check from "../../assets/img/check.svg";
 
@@ -13,53 +14,24 @@ export default function Today() {
   const [habits, setHabits] = useState(null);
   const [habitsLoaded, setHabitsLoaded] = useState(false);
   const [reloadListedHabits, setRealoadListedHabits] = useState(false);
-  const dateMonth = dayjs().date();
-  const [month, setMonth] = useState(dayjs().month());
-  const [weekDay, setWeekDay] = useState(dayjs().day());
 
-  switch (weekDay) {
-    case 1:
-      setWeekDay('Segunda');
-      break;
+  let dateMonth = dayjs().date();
+  let month = dayjs().month() + 1;
+  let weekDay = dayjs().day();
+  let weekDayExtended = dayjs(weekDay).locale(ptBr).format('dddd').replace("-feira", "");
 
-    case 2:
-      setWeekDay('Terça');
-      break;
-
-    case 3:
-      setWeekDay('Quarta');
-      break;
-
-    case 4:
-      setWeekDay('Quinta');
-      break;
-
-    case 5:
-      setWeekDay('Sexta');
-      break;
-
-    case 6:
-      setWeekDay('Sábado');
-      break;
-
-    case 0:
-      setWeekDay('Domingo');
-      break;
+  if(dateMonth < 10){
+    dateMonth = 0 + dateMonth.toString();
+  }
   
-    default:
-      break;
+  if(month < 10){
+    month = 0 + month.toString();
   }
 
+  const [date, setDate] = useState(`${weekDayExtended}, ${dateMonth}/${month}`);
   useEffect(() => {
-    if(month < 10){
-      setMonth(`${month}`);
-    }
-  }, [month]);
-  const [date, setDate] = useState(`${weekDay}, ${dateMonth < 10 ? 0 + dateMonth.toString() : dateMonth}/${month + 1}`);
-
-  useEffect(() => {
-    setDate(`${weekDay}, ${dateMonth < 10 ? 0 + dateMonth.toString() : dateMonth}/${month + 1}`);
-  }, [weekDay, dateMonth, month])
+    setDate(`${weekDayExtended}, ${dateMonth}/${month}`);
+  }, [weekDay, weekDayExtended, dateMonth, month])
   
   useEffect(() =>{
     const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', 

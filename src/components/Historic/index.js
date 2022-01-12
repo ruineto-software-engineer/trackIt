@@ -2,6 +2,7 @@ import axios from "axios";
 import { Fragment, useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import dayjs from 'dayjs';
+import ptBr from "dayjs/locale/pt-br";
 import TokenContext from "../../contexts/TokenContext";
 import PercentageContext from "../../contexts/PercentageContext";
 import DayContext from "../../contexts/DayContext";
@@ -84,46 +85,20 @@ export default function Historic() {
     const clickedDate = dayjs(date).format("DD/MM/YYYY");
 
     let dateMonth = dayjs(date).date();
-    let month = dayjs(date).month();
-    let weekDay = dayjs(date).day();
+    let month = dayjs(date).month() + 1;
+    let weekDay = dayjs(date).locale(ptBr).format('dddd').replace("-feira", "");
   
-    switch (weekDay) {
-      case 1:
-        weekDay = 'Segunda';
-        break;
-  
-      case 2:
-        weekDay = 'Terça';
-        break;
-  
-      case 3:
-        weekDay = 'Quarta';
-        break;
-  
-      case 4:
-        weekDay = 'Quinta';
-        break;
-  
-      case 5:
-        weekDay = 'Sexta';
-        break;
-  
-      case 6:
-        weekDay = 'Sábado';
-        break;
-  
-      case 0:
-        weekDay = 'Domingo';
-        break;
+    if(dateMonth < 10){
+      dateMonth = 0 + dateMonth.toString();
+    }
     
-      default:
-        break;
+    if(month < 10){
+      month = 0 + month.toString();
     }
 
-    const dateExtendend = `${weekDay}, ${dateMonth < 10 ? 0 + dateMonth.toString() : dateMonth}/${month + 1}`;
+    const dateExtendend = `${weekDay}, ${dateMonth}/${month}`
 
     let habitsClickedDate = [];
-    const idDay = dateMonth;
     for (let i = 0; i < historic.length; i++) {
       const historicElement = historic[i];
       
@@ -144,7 +119,7 @@ export default function Historic() {
         "percentageCompletedHabits": ((habitsDone.length/habitsClickedDate.length) * 100)
       }
     );
-    navigate(`/Day/${idDay}`);
+    navigate(`/Day/${dateMonth}`);
   }
 
   return(
