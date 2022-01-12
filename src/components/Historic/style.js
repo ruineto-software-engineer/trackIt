@@ -27,7 +27,7 @@ const Title = styled.h2`
 `;
 
 const ContainerCalendar = styled.div`
-  height: 402px;
+  height: 75%;
 
   margin-bottom: 30px;
 `;
