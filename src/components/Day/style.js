@@ -44,7 +44,7 @@ const DateSubtitle = styled.p`
     (props) => 
       props.selectedDayHistoric !== '' &&
         props.selectedDayHistoric.selectedDateHabits.length > 0 ?
-          props.habitsPercentage !== 100 ?
+          props.habitsPercentage < 100 ?
             "#E65666"
           :
             "#8FC549" 
