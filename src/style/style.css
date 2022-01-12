@@ -26,7 +26,7 @@ body, html{
 button.react-calendar__tile.react-calendar__month-view__days__day.react-calendar__month-view__days__day--neighboringMonth.completed > abbr{
   background-color: #8CC654;
 
-  padding: 11px 12px;
+  padding: 11px 12.5px;
 
   color: #757575;
 
@@ -46,7 +46,7 @@ button.react-calendar__tile.react-calendar__month-view__days__day.react-calendar
 button.completed > abbr{
   background-color: #8CC654;
 
-  padding: 11px 12px;
+  padding: 11px 12.5px;
 
   color: #000000;
 
@@ -63,20 +63,20 @@ button.incompleted > abbr{
   border-radius: 50px;
 }
 
-.react-calendar__viewContainer{
-  height: 100%;
-}
-
-.react-calendar__month-view{
-  height: 100%;
-}
-
-.react-calendar__month-view > div{
-  height: 100%;
-}
-
+.react-calendar__viewContainer,
+.react-calendar__year-view,
+.react-calendar__decade-view,
+.react-calendar__month-view,
+.react-calendar__century-view,
+.react-calendar__month-view > div,
 .react-calendar__month-view > div > div{
   height: 100%;
+}
+
+.react-calendar__year-view__months,
+.react-calendar__decade-view__years,
+.react-calendar__century-view__decades{
+  height: 84%;
 }
 
 .react-calendar__month-view__days{
