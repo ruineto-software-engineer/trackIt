@@ -84,6 +84,8 @@ const Hyperlink = styled(Link)`
   line-height: 17px;
   text-decoration-line: underline;
 
+  pointer-events: ${(props) => props.stageLoading ? "none" : "all"};
+
   color: #52B6FF;
 `;
 

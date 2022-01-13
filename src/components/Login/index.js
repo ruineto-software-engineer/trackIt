@@ -77,7 +77,7 @@ export default function Login() {
           </Button>
         </Form>
 
-        <Hyperlink to="/register">
+        <Hyperlink to="/register" stageLoading={isLoading}>
           Não tem uma conta? Cadastre-se!
         </Hyperlink>
       </Container>
