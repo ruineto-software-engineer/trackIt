@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: 110%;
 
   display: flex;
   justify-content: center;
@@ -14,8 +14,6 @@ const Container = styled.div`
 const Content = styled.div`
   width: 90%;
   height: 100%;
-
-  background-color: #F2F2F2;
 `;
 
 const Title = styled.h2`
