@@ -21,6 +21,8 @@ body, html{
 .react-calendar__tile--now,
 .react-calendar__tile--now > abbr{
   background: #ffff76 !important;
+  
+  color: #000000;
 }
 
 button.react-calendar__tile.react-calendar__month-view__days__day.react-calendar__month-view__days__day--neighboringMonth.completed > abbr{

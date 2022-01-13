@@ -9,7 +9,7 @@ const Container = styled.div`
         props.dayContent.selectedDateHabits.length > 3 ? 
           "initial" 
         : 
-          "100%"
+          "110%"
   };
 
   padding-bottom: 120px;
