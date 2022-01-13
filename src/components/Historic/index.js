@@ -12,8 +12,7 @@ import Style from "./style";
 export default function Historic() {
   const { 
     Container, 
-    Content, 
-    ContentAjust,
+    Content,
     Title, 
     ContainerCalendar, 
     StyledCalendar
@@ -142,11 +141,7 @@ export default function Historic() {
               formatDay ={(locale, date) => dayjs(date).format('DD')}
               onClickDay={(date) => handleClickDay(date)}
             />
-          </ContainerCalendar> 
-
-          <ContentAjust>
-            Calendar in the page route
-          </ContentAjust>     
+          </ContainerCalendar>
         </Content>
       </Container>
     </Fragment>
