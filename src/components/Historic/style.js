@@ -9,12 +9,22 @@ const Container = styled.div`
   justify-content: center;
 
   background-color: #F2F2F2;
+
+  overflow: hidden;
 `;
 
 const Content = styled.div`
   width: 90%;
   height: 100%;
+
 `;
+
+const ContentAjust = styled.div`
+  height: 300px;
+  width: 100%;
+
+  visibility: hidden;
+`
 
 const Title = styled.h2`
   font-size: 22.976px;
@@ -42,6 +52,7 @@ const StyledCalendar = styled(Calendar)`
 const components = {
   Container,
   Content,
+  ContentAjust,
   Title,
   ContainerCalendar,
   StyledCalendar
