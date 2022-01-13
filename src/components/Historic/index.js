@@ -141,7 +141,7 @@ export default function Historic() {
               formatDay ={(locale, date) => dayjs(date).format('DD')}
               onClickDay={(date) => handleClickDay(date)}
             />
-          </ContainerCalendar>        
+          </ContainerCalendar>      
         </Content>
       </Container>
     </Fragment>

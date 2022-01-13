@@ -13,6 +13,7 @@ const Container = styled.div`
 
 const Content = styled.div`
   width: 90%;
+  height: 100%;
 `;
 
 const Title = styled.h2`
@@ -25,9 +26,7 @@ const Title = styled.h2`
 `;
 
 const ContainerCalendar = styled.div`
-  height: 75%;
-
-  padding-bottom: 100px;
+  height: 60%;
 `;
 
 const StyledCalendar = styled(Calendar)`
